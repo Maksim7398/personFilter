@@ -24,7 +24,7 @@ public class PersonServiceTest {
     @MethodSource("team.mediasoft.study.tasks.streamapi.service.arguments.PersonServiceTestArgumentCreator#createPersonsFilterArguments")
     void shouldSearchPersonsCorrectly(List<Person> sourcePersonList, SearchFilter filter, List<Person> expectedResult) {
         final PersonService service = new PersonService(sourcePersonList);
-        final List<Person> actualResult = (List<Person>) service.getPersonsByFilter(filter);
+        final List<Person> actualResult = service.getPersonsByFilter(filter);
         Assertions.assertThat(expectedResult).containsExactlyInAnyOrderElementsOf(actualResult);
     }
 }
