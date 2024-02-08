@@ -4,6 +4,7 @@ import team.mediasoft.study.tasks.streamapi.exception.FilterValidationException;
 import team.mediasoft.study.tasks.streamapi.model.filter.SearchFilter;
 
 import static team.mediasoft.study.tasks.streamapi.model.filter.FilterOperator.CONTAINS;
+import static team.mediasoft.study.tasks.streamapi.model.filter.FilterOperator.EQUALS;
 
 public class PersonValidator {
 
@@ -20,43 +21,44 @@ public class PersonValidator {
                 && searchFilter.getSecondName() == null
                 && searchFilter.getAge() == null
                 && searchFilter.getBirthPlaceRegion() == null) {
-            throw new FilterValidationException("not valid");
+            throw new FilterValidationException("not all fields is null");
         }
     }
 
     private static void validatorName(SearchFilter filter) {
-        if (filter.getFirstName() != null) {
-            if (filter.getFirstName().getOperator() != null || filter.getFirstName().getValue() == null) {
-//                if (filter.getFirstName().getOperator() != EQUALS && filter.getFirstName().getOperator() != CONTAINS) {
-//                    throw new FilterValidationException("Not valid");
-//                }
-                throw new FilterValidationException("Not valid");
+        if (filter.getSecondName() != null) {
+            if (filter.getSecondName().getValue() == null) {
+                throw new FilterValidationException("Not valid lastName");
+            }
+            if (filter.getSecondName().getOperator() != EQUALS && filter.getSecondName().getOperator() != CONTAINS) {
+                throw new FilterValidationException("Not valid secondName");
             }
         }
-        if (filter.getSecondName() != null) {
-            if (filter.getSecondName().getOperator() != null || filter.getSecondName().getValue() == null) {
-//                if (filter.getSecondName().getOperator() != EQUALS && filter.getSecondName().getOperator() != CONTAINS) {
-//                    throw new FilterValidationException("Not valid");
-//                }
-                throw new FilterValidationException("Not valid");
+        if (filter.getFirstName() != null) {
+            if (filter.getFirstName().getValue() == null) {
+                throw new FilterValidationException("Not valid lastName");
             }
+            if (filter.getFirstName().getOperator() != EQUALS && filter.getFirstName().getOperator() != CONTAINS) {
+                throw new FilterValidationException("Not valid firstName");
+            }
+
         }
         if (filter.getLastName() != null) {
-            if (filter.getLastName().getOperator() != null || filter.getLastName().getValue() == null) {
-//                if (filter.getLastName().getOperator() != EQUALS && filter.getLastName().getOperator() != CONTAINS) {
-//                    throw new FilterValidationException("Not valid");
-//                }
-                throw new FilterValidationException("Not valid");
+            if (filter.getLastName().getValue() == null) {
+                throw new FilterValidationException("Not valid lastName getValue");
+            }
+            if (filter.getLastName().getOperator() != EQUALS && filter.getLastName().getOperator() != CONTAINS) {
+                throw new FilterValidationException("Not valid lastName getOperator");
             }
         }
 
-    }
 
+    }
 
     private static void validatorAge(SearchFilter filter) {
         if (filter.getAge() != null) {
             if (filter.getAge().getOperator() == CONTAINS) {
-                throw new FilterValidationException("not valid");
+                throw new FilterValidationException("not valid age");
             }
         }
     }
@@ -64,10 +66,10 @@ public class PersonValidator {
     private static void validatorBirthPlaceRegion(SearchFilter searchFilter) {
         if (searchFilter.getBirthPlaceRegion() != null) {
             if (searchFilter.getBirthPlaceRegion().getValue().isEmpty()) {
-                throw new FilterValidationException("not Valid");
+                throw new FilterValidationException("not Valid birthPlaceRegion");
             }
             if (searchFilter.getBirthPlaceRegion().getOperator() != CONTAINS) {
-                throw new FilterValidationException("not Valid");
+                throw new FilterValidationException("not Valid birthPlaceRegion");
             }
         }
 
